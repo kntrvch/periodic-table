@@ -22,6 +22,10 @@ export class PeriodicTableService {
     return this.state.get();
   }
 
+  selectState(): Observable<PeriodicElementState> {
+    return this.state.select();
+  }
+
   connectFilter(filterStream: Observable<string>) {
     this.state.connect('filter', filterStream.pipe(debounceTime(2000)));
   }

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FilterInputComponent } from '../filter-input/filter-input.component';
-import { RxState } from '@rx-angular/state';
 import { PeriodicElementState } from '../../models/periodic-element-state';
 import { PeriodicElement } from '../../models/periodic-element';
-import { combineLatest, map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { PeriodicTableService } from '../../services/periodic-table.service';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -17,20 +16,17 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class PeriodicTableComponent {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  filteredElements$: Observable<PeriodicElement[]>;
+  filteredElements$: Observable<PeriodicElement[]> | undefined;
 
   constructor(
-    public state: RxState<PeriodicElementState>,
     private periodicTableService: PeriodicTableService
-  ) {
-    this.filteredElements$ = combineLatest([
-      this.state.select('elements'),
-      this.state.select('filter'),
-    ]).pipe(map(([elements, filter]) => this.filterElements(filter)));
-  }
+  ) {}
 
   ngOnInit() {
-    this.state.select().subscribe((state) => console.log(state));
+    this.filteredElements$ = this.periodicTableService.selectState().pipe(
+      tap((state) => console.log(state)), // DEBUG
+      map((state: PeriodicElementState) => this.filterElements(state.filter))
+    );
   }
 
   private filterElements(filterText: string): PeriodicElement[] {

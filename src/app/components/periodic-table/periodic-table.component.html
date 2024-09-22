@@ -1,7 +1,6 @@
-
 <app-filter-input></app-filter-input>
 <table mat-table [dataSource]="filteredElements" class="mat-elevation-z8"
-    *ngIf="filteredElements$ | async as filteredElements">
+    *ngIf="filteredElements$ | async as filteredElements; else loading">
     <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef> No. </th>
         <td mat-cell *matCellDef="let element"> {{element.position}} </td>
@@ -25,3 +24,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<ng-template #loading>
+    Loading...
+</ng-template>
