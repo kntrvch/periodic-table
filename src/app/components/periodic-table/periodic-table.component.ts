@@ -9,11 +9,18 @@ import { MatTableModule } from '@angular/material/table';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-periodic-table',
   standalone: true,
-  imports: [CommonModule, FilterInputComponent, MatTableModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    FilterInputComponent,
+    MatTableModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
   templateUrl: './periodic-table.component.html',
   styleUrl: './periodic-table.component.scss',
 })

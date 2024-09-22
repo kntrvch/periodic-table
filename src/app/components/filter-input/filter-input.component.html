@@ -1,6 +1,7 @@
 <form [formGroup]="filterForm">
     <mat-form-field>
         <mat-label>Filter by name or symbol</mat-label>
+        <mat-icon matPrefix>filter_alt</mat-icon>
         <input matInput type="text" #filter formControlName="filter">
         @if (filter.value) {
         <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
