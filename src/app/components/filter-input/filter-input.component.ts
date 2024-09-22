@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { debounceTime } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,7 +30,7 @@ import { PeriodicTableService } from '../../services/periodic-table.service';
   templateUrl: './filter-input.component.html',
   styleUrl: './filter-input.component.scss',
 })
-export class FilterInputComponent {
+export class FilterInputComponent implements OnInit {
   filterForm: FormGroup;
 
   constructor(
@@ -41,13 +41,12 @@ export class FilterInputComponent {
     this.filterForm = this.fb.group({
       filter: [''],
     });
+  }
 
-    this.filterForm
-      .get('filter')!
-      .valueChanges.pipe(debounceTime(2000))
-      .subscribe((value) => {
-        this.periodicTableService.setState({ filter: value });
-      });
+  ngOnInit() {
+    this.periodicTableService.connectFilter(
+      this.filterForm.get('filter')!.valueChanges
+    );
   }
 
   clearFilter() {
