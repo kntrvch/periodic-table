@@ -12,6 +12,8 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { PeriodicElementState } from '../../models/periodic-element-state';
+import { PeriodicTableService } from '../../services/periodic-table.service';
 
 @Component({
   selector: 'app-filter-input',
@@ -33,7 +35,8 @@ export class FilterInputComponent {
 
   constructor(
     private fb: FormBuilder,
-    private state: RxState<{ filter: string }>
+    private state: RxState<PeriodicElementState>,
+    private periodicTableService: PeriodicTableService
   ) {
     this.filterForm = this.fb.group({
       filter: [''],
@@ -43,7 +46,7 @@ export class FilterInputComponent {
       .get('filter')!
       .valueChanges.pipe(debounceTime(2000))
       .subscribe((value) => {
-        this.state.set({ filter: value });
+        this.periodicTableService.setState({ filter: value });
       });
   }
 

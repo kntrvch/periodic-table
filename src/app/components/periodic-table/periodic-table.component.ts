@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FilterInputComponent } from '../filter-input/filter-input.component';
 import { RxState } from '@rx-angular/state';
-import { PeriodicElement } from '../../models/periodic-element';
+import { PeriodicElementState } from '../../models/periodic-element-state';
 
 @Component({
   selector: 'app-periodic-table',
@@ -12,7 +12,7 @@ import { PeriodicElement } from '../../models/periodic-element';
 })
 export class PeriodicTableComponent {
   constructor(
-    public state: RxState<{ elements: PeriodicElement[]; filter: string }>
+    public state: RxState<PeriodicElementState>
   ) {
   }
 

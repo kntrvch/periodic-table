@@ -9,13 +9,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { routes } from './app.routes';
 import { PeriodicTableService } from './services/periodic-table.service';
-import { PeriodicElement } from './models/periodic-element';
 import { RxState } from '@rx-angular/state';
+import { PeriodicElementState } from './models/periodic-element-state';
 
 function initializeApp(): () => Promise<void> {
   const periodicTableService = inject(PeriodicTableService);
   const state = inject(
-    RxState<{ elements: PeriodicElement[]; filter: string }>
+    RxState<PeriodicElementState>
   );
   return () =>
     new Promise((resolve, reject) => {
