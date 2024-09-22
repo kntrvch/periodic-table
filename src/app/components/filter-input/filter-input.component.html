@@ -1,1 +1,11 @@
-<p>filter-input works!</p>
+<form [formGroup]="filterForm">
+    <mat-form-field>
+        <mat-label>Filter by name or symbol</mat-label>
+        <input matInput type="text" #filter formControlName="filter">
+        @if (filter.value) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+    </mat-form-field>
+</form>
